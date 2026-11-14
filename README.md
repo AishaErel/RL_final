@@ -4,7 +4,7 @@
 rl_final/
 ├── scripts/
 │   └── rl_final/
-│       ├── __init__.py
+│       ├── test_environment.py
 │       ├── lane_change_env.py
 │       ├── neighbors.py
 │       ├── communication.py
@@ -14,7 +14,6 @@ rl_final/
 │       └── baselines.py
 │
 ├── train/
-│   ├── test_environment.py
 │   ├── train_world_model.py
 │   ├── train_request_policy.py
 │   └── evaluate.py
