@@ -1,19 +1,28 @@
-"""
-Create the environment.
-Reset it.
-Print the observation.
-Take random driving and request actions.
-Check whether the episode ends after success or collision.
-Render or plot several scenarios.
-"""
-import gymnasium as gym
-import highway_env
+from lane_change_env import LaneChangeEnv
 
-env = gym.make("highway-v0")
-obs, info = env.reset()
+env = LaneChangeEnv(
+    traffic_density="medium",
+    communication_cost=0.05,
+)
 
-print("Observation space:", env.observation_space)
-print("Action space:", env.action_space)
-print("Initial observation:", obs)
+observation, info = env.reset()
+
+print("Initial observation:")
+print(observation)
+
+for step in range(10):
+    action = {
+        "drive": 0,     # maintain speed
+        "request": 1,   # ask front vehicle
+    }
+
+    observation, reward, terminated, truncated, info = env.step(action)
+
+    print("Step:", step)
+    print("Reward:", reward)
+    print("Observation:", observation)
+
+    if terminated or truncated:
+        break
 
 env.close()
