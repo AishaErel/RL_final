@@ -11,18 +11,22 @@ print("Initial observation:")
 print(observation)
 
 for step in range(10):
+    if step < 3:
+        drive_action = 0       # maintain speed
+    else:
+        drive_action = 3       # initiate lane change
+
     action = {
-        "drive": 0,     # maintain speed
-        "request": 1,   # ask front vehicle
+        "drive": drive_action,
+        "request": 1,           # ask front vehicle
     }
 
     observation, reward, terminated, truncated, info = env.step(action)
 
     print("Step:", step)
     print("Reward:", reward)
-    print("Observation:", observation)
+    print("Info:", info)
 
     if terminated or truncated:
         break
-
 env.close()
