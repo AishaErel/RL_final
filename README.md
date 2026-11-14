@@ -2,7 +2,7 @@
 
 ```text
 rl_final/
-├── src/
+├── scripts/
 │   └── rl_final/
 │       ├── __init__.py
 │       ├── lane_change_env.py
@@ -13,7 +13,7 @@ rl_final/
 │       ├── request_policy.py
 │       └── baselines.py
 │
-├── scripts/
+├── train/
 │   ├── test_environment.py
 │   ├── train_world_model.py
 │   ├── train_request_policy.py
