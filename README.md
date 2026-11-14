@@ -1,6 +1,10 @@
+## Project Structure
+
+```text
 rl_final/
 ├── src/
 │   └── rl_final/
+│       ├── __init__.py
 │       ├── lane_change_env.py
 │       ├── neighbors.py
 │       ├── communication.py
@@ -18,4 +22,7 @@ rl_final/
 ├── notebooks/
 │   └── train_and_test_colab.ipynb
 │
-└── requirements.txt
+├── results/
+├── checkpoints/
+├── requirements.txt
+└── README.md
