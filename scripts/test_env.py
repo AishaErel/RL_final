@@ -26,6 +26,7 @@ for step in range(10):
     print("Step:", step)
     print("Reward:", reward)
     print("Info:", info)
+    print("Local observation:", observation["local"])
 
     if terminated or truncated:
         break
