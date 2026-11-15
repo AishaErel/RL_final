@@ -204,21 +204,22 @@ class LaneChangeEnv(gym.Env):
             "message": message,
             "message_received": message_received,
         }
-
-        info.update(
-            {
-                "success": success,
-                "collision": collision,
-                "traffic_density": self.traffic_density,
-                "drive_action": drive_action,
-                "request_action": request_action,
-                "communication_cost": (
-                    self.communication_cost
-                    if request_action != 0
-                    else 0.0
-                ),
-            }
-        )
+        info.update({
+            "success": success,
+            "collision": collision,
+            "current_lane": current_lane,
+            "front_gap": float(front_gap),
+            "rear_gap": float(rear_gap),
+            "traffic_density": self.traffic_density,
+            "drive_action": drive_action,
+            "request_action": request_action,
+            "communication_cost": (
+                self.communication_cost
+                if request_action != 0
+                else 0.0
+            ),
+        })
+       
 
         return observation, reward, terminated, truncated, info
 
