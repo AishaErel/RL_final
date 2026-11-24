@@ -1,7 +1,6 @@
 from pathlib import Path
 import sys
 
-# Add the src/ folder to Python's path
 project_root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(project_root / "src"))
 
