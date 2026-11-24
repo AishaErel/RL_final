@@ -57,7 +57,7 @@ def main():
         else:
             drive_action = 3      # initiate lane change
 
-        request_action = 0        # no communication for this test
+        request_action = 1        # no communication for this test
 
         action = {
             "drive": drive_action,
@@ -75,6 +75,8 @@ def main():
         print("Collision:", info["collision"])
         print("Front gap:", info["front_gap"])
         print("Rear gap:", info["rear_gap"])
+        print("Message received:", observation["message_received"])
+        print("Message:", observation["message"])
 
         if terminated or truncated:
             print("\nEpisode ended.")
