@@ -1,14 +1,39 @@
 from pathlib import Path
 import sys
+import importlib.util
 
+
+# Find the project folder
 project_root = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(project_root / "src"))
 
-from rl_final.lane_change_env import LaneChangeEnv
+# Search for lane_change_env.py anywhere inside the project
+matches = list(project_root.rglob("lane_change_env.py"))
+
+if not matches:
+    raise FileNotFoundError(
+        f"Could not find lane_change_env.py inside {project_root}"
+    )
+
+environment_file = matches[0]
+
+# Allow the environment file to find related files
+sys.path.insert(0, str(environment_file.parent))
+
+# Load lane_change_env.py directly
+spec = importlib.util.spec_from_file_location(
+    "lane_change_env",
+    environment_file,
+)
+
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+
+LaneChangeEnv = module.LaneChangeEnv
 
 
 def main():
-    print("Creating environment...")
+    print("Using environment file:")
+    print(environment_file)
 
     env = LaneChangeEnv(
         traffic_density="low",
@@ -27,14 +52,12 @@ def main():
     print(observation)
 
     for step in range(15):
-        # Maintain speed briefly, then attempt a lane change.
         if step < 2:
-            drive_action = 0
+            drive_action = 0      # maintain speed
         else:
-            drive_action = 3
+            drive_action = 3      # initiate lane change
 
-        # Use no communication for this first lane-change test.
-        request_action = 0
+        request_action = 0        # no communication for this test
 
         action = {
             "drive": drive_action,
@@ -46,22 +69,18 @@ def main():
         )
 
         print(f"\nStep: {step}")
-        print("Drive action:", drive_action)
-        print("Request action:", request_action)
         print("Reward:", reward)
         print("Current lane:", info["current_lane"])
         print("Success:", info["success"])
         print("Collision:", info["collision"])
         print("Front gap:", info["front_gap"])
         print("Rear gap:", info["rear_gap"])
-        print("Local observation:", observation["local"])
 
         if terminated or truncated:
             print("\nEpisode ended.")
             break
 
     env.close()
-    print("\nTest complete.")
 
 
 if __name__ == "__main__":
