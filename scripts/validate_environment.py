@@ -2,6 +2,7 @@ from pathlib import Path
 import sys
 import importlib.util
 import csv
+from datetime import datetime
 
 
 # Locate the project root
@@ -156,7 +157,11 @@ def main():
     results_directory = project_root / "results"
     results_directory.mkdir(exist_ok=True)
 
-    results_file = results_directory / "environment_validation.csv"
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    results_file = (
+        results_directory
+        / f"environment_validation_{timestamp}.csv"
+    )
 
     with open(results_file, "w", newline="") as file:
         fieldnames = [
