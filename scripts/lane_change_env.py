@@ -244,7 +244,7 @@ class LaneChangeEnv(gym.Env):
         if drive_action == 3:
             # In this setup, lane 0 is the start lane
             # and lane 1 is the target lane.
-            return action_indexes["LANE_LEFT"]
+            return action_indexes["LANE_RIGHT"]
 
         raise ValueError("Invalid driving action")
 
